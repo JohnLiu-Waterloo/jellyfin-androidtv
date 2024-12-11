@@ -47,6 +47,7 @@ fun PlaybackController.applyMediaSegments(
 
 			when (action) {
 				MediaSegmentAction.SKIP -> addSkipAction(mediaSegment)
+				MediaSegmentAction.ASK_TO_SKIP -> addAskToSkipAction(mediaSegment)
 				MediaSegmentAction.NOTHING -> Unit
 			}
 		}
@@ -71,4 +72,17 @@ private fun PlaybackController.addSkipAction(mediaSegment: MediaSegmentDto) {
 		.setPayload(mediaSegment)
 		.setDeleteAfterDelivery(false)
 		.send()
+}
+
+@OptIn(UnstableApi::class)
+private fun PlaybackController.addAskToSkipAction(mediaSegment: MediaSegmentDto) {
+    mVideoManager.mExoPlayer
+        .createMessage { _, _ ->
+            // Directly call the new function in CustomPlaybackOverlayFragment to update the target position
+            (fragment as? CustomPlaybackOverlayFragment)?.updateSkipOverlayTargetPosition(mediaSegment.end.inWholeMilliseconds)
+        }
+        // Segments at position 0 will never be hit by ExoPlayer so we need to add a minimum value
+        .setPosition(mediaSegment.start.inWholeMilliseconds.coerceAtLeast(1))
+        .setDeleteAfterDelivery(false)
+        .send()
 }

@@ -16,4 +16,9 @@ enum class MediaSegmentAction(
 	 * lagg. The skip action will only execute when playing over the segment start, not when seeking into the segment block.
 	 */
 	SKIP(R.string.segment_action_skip),
+
+	/**
+     * Ask the user if they want to skip the segment. If the user agrees, behave like SKIP.
+     */
+    ASK_TO_SKIP(R.string.segment_action_ask_to_skip),
 }

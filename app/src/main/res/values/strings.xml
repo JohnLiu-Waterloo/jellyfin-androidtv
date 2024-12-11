@@ -520,6 +520,7 @@
     <string name="pref_mediasegment_actions">Media segment actions</string>
     <string name="segment_action_nothing">Do nothing</string>
     <string name="segment_action_skip">Skip</string>
+    <string name="segment_action_ask_to_skip">Ask to Skip</string>
     <string name="segment_type_commercial">Commercials</string>
     <string name="segment_type_intro">Intros</string>
     <string name="segment_type_outro">Outros</string>
